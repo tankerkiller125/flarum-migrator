@@ -1,13 +1,42 @@
 {
-    "users": {
-        "columns": [{
-            "name": "username",
-            "type": "VARCHAR",
-            "logic": "<insert somesort of template logic thing here>",
-            "flarum": {
-                "table": "users",
-                "column": "username"
-            }
-        }]
-    }
+	"users": {
+		"columns": [{
+			"name": "username",
+			"type": "VARCHAR",
+			"logic": "<insert somesort of template logic thing here>",
+			"flarum": {
+				"table": "users",
+				"column": "username"
+			}
+		}],
+		"dependencies": []
+	},
+	"posts": {
+		"columns": [{
+				"name": "created_at",
+				"type": "DATETIME",
+				"flarum": {
+					"table": "posts",
+					"column": "created_at"
+				}
+			},
+			{
+				"name": "user_id",
+				"type": "INT",
+				"flarum": {
+					"table": "posts",
+					"column": "user_id"
+				},
+				"relationship": {
+					"table": "users",
+					"column": "id"
+				}
+			}
+		],
+		"dependencies": ["users"]
+	},
+	"discussions": {
+		"columns": [{}],
+		"dependencies": ["posts", "users"]
+	}
 }
